@@ -42,7 +42,7 @@ ul {
     width: 660px;
     /*min-height: 680px;*/
     /*background: linear-gradient(180deg, #85cdca 0%, #c38d9e 100%);*/
-    background: #7DC2AD;
+    background: #7DCFB6;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -64,6 +64,14 @@ ul {
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    /*transition: 0.4s;*/
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(5deg); }
+   20% { transform: rotate(-5deg); }
+   50% { transform: rotate(5deg); }
+   80% { transform: rotate(-5deg); }
 }
 
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
@@ -72,10 +80,9 @@ ul {
 }
 
 .deck .card.open {
-    transform: rotateY(180deg);
-    transition: 0.4s;
     background: #29BBE3;
     cursor: default;
+    color: #ffffff;
 }
 
 .deck .card.show {
@@ -86,6 +93,16 @@ ul {
 .deck .card.match {
     cursor: default;
     background: #02ccba;
+    color: #ffffff;
+    animation: wiggle .5s;
+    /*font-size: 33px;*/
+}
+
+.deck .card.noMatch {
+    cursor: default;
+    background: #F79256;
+    color: #ffffff;
+    animation: wiggle .4s;
     /*font-size: 33px;*/
 }
 

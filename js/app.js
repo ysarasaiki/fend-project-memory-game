@@ -1,15 +1,15 @@
 /*
  * Create a list that holds all of your cards
  */
-const icons = ["flaticon-002-salt-and-pepper","flaticon-002-salt-and-papper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper"]
+const iconsa = ["flaticon-002-salt-and-pepper","flaticon-002-salt-and-papper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper"]
 
-const icons2 = ["flaticon-002-salt-and-pepper", "flaticon-001-bacon", "flaticon-005-sausage", "flaticon-015-beer-can", "flaticon-027-pinwheel", "flaticon-018-taco", "flaticon-034-flower", "flaticon-032-ladybug"]
+const icons = ["flaticon-002-salt-and-pepper", "flaticon-001-bacon", "flaticon-005-sausage", "flaticon-015-beer-can", "flaticon-027-pinwheel", "flaticon-018-taco", "flaticon-034-flower", "flaticon-032-ladybug"]
 
-// const cards = new Array();
-// for (const icon of icons) {
-// 	cards.push(icon);
-// 	cards.push(icon);
-// }
+const cards = new Array();
+for (const icon of icons) {
+	cards.push(icon);
+	cards.push(icon);
+}
 
 /* Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -31,8 +31,8 @@ function shuffle(array) {
 
     return array;
 }
-// shuffle(cards);
-const cards = [1,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+shuffle(cards);
+// const cards = [1,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
 
 const fragment = document.createDocumentFragment();
 
@@ -66,7 +66,7 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
 		targetCard = evt.target.parentElement;	
 	}
 
-	// If card isn't already matched
+	// If card isn't already matched, open card
 	if (!targetCard.classList.contains('match')) {
 		openCard(targetCard);
 		if (openCards.length % 2 == 0) {
@@ -96,10 +96,22 @@ function checkMatch(card) {
 		matchCard(pairCards);
 	} else {
 		noMatch(pairCards);
+		openCards.pop();
+		openCards.pop();
+	}
+
+	setTimeout(function() {
+		checkDone(openCards);
+	}, 1500);
+}
+
+function checkDone(openCards) {
+	if (openCards.length == 16) {
+		alert('done');
 	}
 }
 
-// if the list already has another card, check to see if the two cards match
+ // if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 function matchCard(pairCards) {
 	for (const pairCard of pairCards) {
 		setTimeout(function() {
@@ -112,14 +124,16 @@ function matchCard(pairCards) {
 function noMatch(pairCards) {
 	for (const pairCard of pairCards) {
 		setTimeout(function() {
+			pairCard.classList.add('noMatch');
 			pairCard.classList.remove('open');
+			setTimeout(function() {
+				pairCard.classList.remove('noMatch');
+			}, 775);
 		}, 750);
 	}
 }
 
-/*
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+
+ /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
