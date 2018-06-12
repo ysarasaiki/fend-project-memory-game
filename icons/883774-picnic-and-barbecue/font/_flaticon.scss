@@ -1,0 +1,119 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 06/06/2018 08:09
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-001-bacon:before { content: "\f100"; }
+.flaticon-002-salt-and-pepper:before { content: "\f101"; }
+.flaticon-003-thermos:before { content: "\f102"; }
+.flaticon-004-chicken:before { content: "\f103"; }
+.flaticon-005-sausage:before { content: "\f104"; }
+.flaticon-006-tissue-box:before { content: "\f105"; }
+.flaticon-007-picnic-basket:before { content: "\f106"; }
+.flaticon-008-condiment:before { content: "\f107"; }
+.flaticon-009-hamburger:before { content: "\f108"; }
+.flaticon-010-grill:before { content: "\f109"; }
+.flaticon-011-leaf:before { content: "\f10a"; }
+.flaticon-012-skewer:before { content: "\f10b"; }
+.flaticon-013-water-bottle:before { content: "\f10c"; }
+.flaticon-014-carrot:before { content: "\f10d"; }
+.flaticon-015-beer-can:before { content: "\f10e"; }
+.flaticon-016-acoustic-guitar:before { content: "\f10f"; }
+.flaticon-017-portable-fridge:before { content: "\f110"; }
+.flaticon-018-taco:before { content: "\f111"; }
+.flaticon-019-corn:before { content: "\f112"; }
+.flaticon-020-napkin:before { content: "\f113"; }
+.flaticon-021-paper-boat:before { content: "\f114"; }
+.flaticon-022-sunflower:before { content: "\f115"; }
+.flaticon-023-sandwich:before { content: "\f116"; }
+.flaticon-024-mushroom:before { content: "\f117"; }
+.flaticon-025-fish:before { content: "\f118"; }
+.flaticon-026-butterfly:before { content: "\f119"; }
+.flaticon-027-pinwheel:before { content: "\f11a"; }
+.flaticon-028-camera:before { content: "\f11b"; }
+.flaticon-029-radio:before { content: "\f11c"; }
+.flaticon-030-fishing-rod:before { content: "\f11d"; }
+.flaticon-031-plate:before { content: "\f11e"; }
+.flaticon-032-ladybug:before { content: "\f11f"; }
+.flaticon-033-kite:before { content: "\f120"; }
+.flaticon-034-flower:before { content: "\f121"; }
+.flaticon-035-watermelon:before { content: "\f122"; }
+.flaticon-036-tweezers:before { content: "\f123"; }
+.flaticon-037-sunset:before { content: "\f124"; }
+.flaticon-038-direction-sign:before { content: "\f125"; }
+.flaticon-039-matches:before { content: "\f126"; }
+.flaticon-040-picnic-table:before { content: "\f127"; }
+    
+    $font-Flaticon-001-bacon: "\f100";
+    $font-Flaticon-002-salt-and-pepper: "\f101";
+    $font-Flaticon-003-thermos: "\f102";
+    $font-Flaticon-004-chicken: "\f103";
+    $font-Flaticon-005-sausage: "\f104";
+    $font-Flaticon-006-tissue-box: "\f105";
+    $font-Flaticon-007-picnic-basket: "\f106";
+    $font-Flaticon-008-condiment: "\f107";
+    $font-Flaticon-009-hamburger: "\f108";
+    $font-Flaticon-010-grill: "\f109";
+    $font-Flaticon-011-leaf: "\f10a";
+    $font-Flaticon-012-skewer: "\f10b";
+    $font-Flaticon-013-water-bottle: "\f10c";
+    $font-Flaticon-014-carrot: "\f10d";
+    $font-Flaticon-015-beer-can: "\f10e";
+    $font-Flaticon-016-acoustic-guitar: "\f10f";
+    $font-Flaticon-017-portable-fridge: "\f110";
+    $font-Flaticon-018-taco: "\f111";
+    $font-Flaticon-019-corn: "\f112";
+    $font-Flaticon-020-napkin: "\f113";
+    $font-Flaticon-021-paper-boat: "\f114";
+    $font-Flaticon-022-sunflower: "\f115";
+    $font-Flaticon-023-sandwich: "\f116";
+    $font-Flaticon-024-mushroom: "\f117";
+    $font-Flaticon-025-fish: "\f118";
+    $font-Flaticon-026-butterfly: "\f119";
+    $font-Flaticon-027-pinwheel: "\f11a";
+    $font-Flaticon-028-camera: "\f11b";
+    $font-Flaticon-029-radio: "\f11c";
+    $font-Flaticon-030-fishing-rod: "\f11d";
+    $font-Flaticon-031-plate: "\f11e";
+    $font-Flaticon-032-ladybug: "\f11f";
+    $font-Flaticon-033-kite: "\f120";
+    $font-Flaticon-034-flower: "\f121";
+    $font-Flaticon-035-watermelon: "\f122";
+    $font-Flaticon-036-tweezers: "\f123";
+    $font-Flaticon-037-sunset: "\f124";
+    $font-Flaticon-038-direction-sign: "\f125";
+    $font-Flaticon-039-matches: "\f126";
+    $font-Flaticon-040-picnic-table: "\f127";
