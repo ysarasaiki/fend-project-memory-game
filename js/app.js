@@ -1,8 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
-const iconsa = ["flaticon-002-salt-and-pepper","flaticon-002-salt-and-papper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper","flaticon-002-salt-and-pepper"]
-
+// Create a list that holds all of your cards
 const icons = ["flaticon-002-salt-and-pepper", "flaticon-001-bacon", "flaticon-005-sausage", "flaticon-015-beer-can", "flaticon-027-pinwheel", "flaticon-018-taco", "flaticon-034-flower", "flaticon-032-ladybug"]
 
 const cards = new Array();
@@ -14,8 +10,7 @@ for (const icon of icons) {
 /* Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+ *   - add each card's HTML to the page */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -28,37 +23,41 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
-shuffle(cards);
-// const cards = [1,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
 
-const fragment = document.createDocumentFragment();
+const deck = document.querySelector('.deck')
 
-for (const i in cards) {
-	const newCard = document.createElement('li');
-	newCard.className = 'card';
+function loadDeck() {
+	shuffle(cards);
 
-	const newIcon = document.createElement('i');
-	newIcon.className = cards[i];
-	newIcon.id = i;
+	const fragment = document.createDocumentFragment();
 
-	newCard.appendChild(newIcon);
-	fragment.appendChild(newCard);
+	for (const i in cards) {
+		const newCard = document.createElement('li');
+		newCard.className = 'card';
+
+		const newIcon = document.createElement('i');
+		newIcon.className = cards[i];
+		newIcon.id = i;
+
+		newCard.appendChild(newIcon);
+		fragment.appendChild(newCard);
+	}
+
+	deck.appendChild(fragment);
 }
 
-document.querySelector('.deck').appendChild(fragment);
+loadDeck();
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
-*/
+/* set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)*/
 function closeCard(card) {
 	card.classList.toggle('open');
 	showCard(card);
 }
-document.querySelector('.deck').addEventListener('click', function(evt) {
+
+deck.addEventListener('click', function(evt) {
 	let targetCard = null;
 	if (evt.target.nodeName == 'LI') {
 		targetCard = evt.target;
@@ -70,6 +69,7 @@ document.querySelector('.deck').addEventListener('click', function(evt) {
 	if (!targetCard.classList.contains('match')) {
 		openCard(targetCard);
 		if (openCards.length % 2 == 0) {
+			incrementMoves();
 			checkMatch(targetCard);
 		}
 	}
@@ -105,12 +105,6 @@ function checkMatch(card) {
 	}, 1500);
 }
 
-function checkDone(openCards) {
-	if (openCards.length == 16) {
-		alert('done');
-	}
-}
-
  // if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
 function matchCard(pairCards) {
 	for (const pairCard of pairCards) {
@@ -133,7 +127,34 @@ function noMatch(pairCards) {
 	}
 }
 
+ /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one) */
+let currentMoveCount = 0;
 
- /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+function incrementMoves(currentMoves) {
+	currentMoveCount += 1;
+	document.querySelector('.moves').innerHTML = currentMoveCount;
+}
+
+ /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+function checkDone(openCards) {
+	if (openCards.length == 16) {
+		document.querySelector('.overlay').classList.add('open');
+		document.querySelector('.finalMoves').innerHTML = document.querySelector('.moves').innerHTML;
+	}
+}
+
+document.querySelector('.play-again').addEventListener('click',function() {
+	document.querySelector('.overlay').classList.remove('open');
+	reset();	
+})
+
+document.querySelector('.fa-repeat').addEventListener('click',function() {
+	reset();	
+})
+
+function reset() {
+	deck.innerHTML = '';
+	document.querySelector('.moves').innerHTML = 0;
+	loadDeck();
+}
