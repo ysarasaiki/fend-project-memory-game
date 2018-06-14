@@ -200,3 +200,25 @@ function updateTime() {
 	secs.innerHTML = (seconds > 9 ? seconds : "0"+seconds);
 
 }
+
+let starCount = 3;
+
+// STAR RATING FUNCTIONALITY
+/*Complete in:
+	< 13 moves: 3 stars!
+	< 20 moves: 2 stars!
+	< 27 moves: 1 stars!*/
+function checkStars () {
+	if (starCount == 3 && currentMoveCount >= 13) {
+		starCount = 2;
+		removeStar('star3');
+	} else if (starCount == 2 && currentMoveCount >= 27) {
+		starCount = 1;
+		removeStar('star2');
+	}
+}
+
+function removeStar(starNum) {
+	let star = document.getElementById(starNum);
+	star.className = 'far fa-star';
+}
