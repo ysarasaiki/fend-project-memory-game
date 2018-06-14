@@ -52,10 +52,8 @@ loadDeck();
 
 /* set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)*/
-function closeCard(card) {
-	card.classList.toggle('open');
-	showCard(card);
-}
+
+let clickCount = 0;
 
 deck.addEventListener('click', function(evt) {
 	let targetCard = null;
@@ -64,6 +62,10 @@ deck.addEventListener('click', function(evt) {
 	} else if (evt.target.nodeName == "I") {
 		targetCard = evt.target.parentElement;	
 	}
+
+	// When first card is clicked, start time
+	clickCount == 0 ? startTimer() : null;
+	clickCount++
 
 	// If card isn't already matched, open card
 	if (!targetCard.classList.contains('match')) {
@@ -138,18 +140,23 @@ function incrementMoves(currentMoves) {
  /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 function checkDone(openCards) {
-	if (openCards.length == 16) {
+	if (openCards.length == 2) {
 		document.querySelector('.overlay').classList.add('open');
 		document.querySelector('.finalMoves').innerHTML = document.querySelector('.moves').innerHTML;
+		stopTimer();
+		document.querySelector('.finalTime').innerHTML = mins.innerHTML + ':' + secs.innerHTML;
 	}
 }
 
-document.querySelector('.play-again').addEventListener('click',function() {
+const play_again_button = document.querySelector('.play-again')
+const repeat_button = document.querySelector('.fa-repeat')
+
+play_again_button.addEventListener('click', function() {
 	document.querySelector('.overlay').classList.remove('open');
 	reset();	
 })
 
-document.querySelector('.fa-repeat').addEventListener('click',function() {
+repeat_button.addEventListener('click', function() {
 	reset();	
 })
 
@@ -157,4 +164,39 @@ function reset() {
 	deck.innerHTML = '';
 	document.querySelector('.moves').innerHTML = 0;
 	loadDeck();
+	resetTimer();
+}
+
+// Timer Functionality
+let t;
+let seconds = 55;
+let minutes = 0;
+let hours = 0;
+let secs = document.querySelector('.secs');
+let mins = document.querySelector('.mins');
+
+function startTimer() {
+	t = setInterval(updateTime, 1000)
+}
+
+function stopTimer() {
+	clearInterval(t);
+}
+
+function resetTimer() {
+	clearInterval(t);
+	mins.innerHTML = "00";
+	secs.innerHTML = "00";
+}
+
+function updateTime() {
+	seconds++;
+
+	if (seconds >= 60) {
+		minutes++ ;
+		seconds = 0;
+	}
+	mins.innerHTML = (minutes > 9 ? minutes : "0"+minutes);
+	secs.innerHTML = (seconds > 9 ? seconds : "0"+seconds);
+
 }

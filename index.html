@@ -16,7 +16,7 @@
         <section class="victory-message">
             <i class="fa fa-trophy"></i>
             <h1 class="win-message">Congratulations! You Won!</h1>
-            <p>It took you <span class="finalMoves">0</span> moves to complete.</p>
+            <p>It took you <span class="finalMoves">0</span> moves and <span class="finalTime">00:00</span> to complete.</p>
             <button class="play-again">Play Again</button>
         </section>
     </div>
@@ -27,17 +27,25 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+            <div class="panel-left">
+            	<ul class="stars">
+            		<li><i class="fa fa-star"></i></li>
+            		<li><i class="fa fa-star"></i></li>
+            		<li><i class="fa fa-star"></i></li>
+            	</ul>
 
-        	<span class="moves">0</span> Moves
+            	<span class="moves">0</span> Moves
+            </div>
+            <div class="panel-right">
+                <!-- <button id='test'>hi</button> -->
+                <div class="timer">
+                    Time: <span class="mins">00</span>:<span class="secs">00</span>
+                </div>
+                <div class="restart">
+                    <i class="fa fa-repeat"></i>
+                </div>                
+            </div>
 
-            <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
         </section>
 
         <ul class="deck">
