@@ -18,3 +18,7 @@ Feel free to contribute.
 
 ## To Do
 Future functionality:
+* Leaderboard
+* Store game state using local storage
+* Keyboard shortcuts
+* Update UI
