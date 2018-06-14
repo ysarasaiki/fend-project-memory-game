@@ -149,7 +149,7 @@ function checkDone(openCards) {
 }
 
 const play_again_button = document.querySelector('.play-again')
-const repeat_button = document.querySelector('.fa-repeat')
+const repeat_button = document.querySelector('.fa-sync')
 
 play_again_button.addEventListener('click', function() {
 	document.querySelector('.overlay').classList.remove('open');
@@ -165,6 +165,7 @@ function reset() {
 	document.querySelector('.moves').innerHTML = 0;
 	loadDeck();
 	resetTimer();
+	resetStar();
 }
 
 // Timer Functionality
@@ -221,4 +222,11 @@ function checkStars () {
 function removeStar(starNum) {
 	let star = document.getElementById(starNum);
 	star.className = 'far fa-star';
+}
+
+function resetStar() {
+	allStars = document.querySelectorAll('.fa-star');
+	for (const star of allStars) {
+		star.className = 'fa fa-star';
+	}
 }
