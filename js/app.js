@@ -1,16 +1,14 @@
-// Create a list that holds all of your cards
-const icons = ["flaticon-002-salt-and-pepper", "flaticon-001-bacon", "flaticon-005-sausage", "flaticon-015-beer-can", "flaticon-027-pinwheel", "flaticon-018-taco", "flaticon-034-flower", "flaticon-032-ladybug"]
+// Define Variables
+const deck = document.querySelector('.deck')
 
-const cards = new Array();
+// List of Icons
+const icons = ['flaticon-002-salt-and-pepper', 'flaticon-001-bacon', 'flaticon-005-sausage', 'flaticon-015-beer-can', 'flaticon-027-pinwheel', 'flaticon-018-taco', 'flaticon-034-flower', 'flaticon-032-ladybug']
+// List of Cards, with 2 cards per icon
+const cards = [];
 for (const icon of icons) {
 	cards.push(icon);
 	cards.push(icon);
 }
-
-/* Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -26,40 +24,45 @@ function shuffle(array) {
     return array;
 }
 
-const deck = document.querySelector('.deck')
-
+// Function to shuffle and load deck
 function loadDeck() {
+	// shuffle cards
 	shuffle(cards);
 
 	const fragment = document.createDocumentFragment();
 
-	for (const i in cards) {
+	// loop through each card and create HTML, add to DocumentFragment
+	for (const card of cards) {
 		const newCard = document.createElement('li');
 		newCard.className = 'card';
 
 		const newIcon = document.createElement('i');
-		newIcon.className = cards[i];
-		newIcon.id = i;
+		newIcon.className = card;
 
 		newCard.appendChild(newIcon);
 		fragment.appendChild(newCard);
 	}
-
+	// Add new HTML to the page
 	deck.appendChild(fragment);
 }
 
+// Load Deck when page initiall loads
 loadDeck();
 
-/* set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)*/
-
-let clickCount = 0;
+// SETTING UP EVENT LISTENER FOR CLICKING A CARD
+// Variables
+let clickCount = 0; // keep track of # of clicks
+let openCards = []; // Create list of open cards (open or matched)
+let currentMoveCount = 0; // keep track of # of moves
+const movesDisplayed = document.querySelector('.moves'); // Move counter displayed
 
 deck.addEventListener('click', function(evt) {
+	// make sure target element is the card (not the icon)
 	let targetCard = null;
+
 	if (evt.target.nodeName == 'LI') {
 		targetCard = evt.target;
-	} else if (evt.target.nodeName == "I") {
+	} else if (evt.target.nodeName == 'I') {
 		targetCard = evt.target.parentElement;	
 	}
 
@@ -71,16 +74,14 @@ deck.addEventListener('click', function(evt) {
 	if (!targetCard.classList.contains('match')) {
 		openCard(targetCard);
 		if (openCards.length % 2 == 0) {
+			// If there's an even # of cards in the openCards, that counts as a 'move', and check whether it matches the last opened card
 			incrementMoves();
 			checkMatch(targetCard);
 		}
 	}
 });
 
-// Create list of open cards (open or matched)
-let openCards = new Array();
-
-/* - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
+// Function that opens card, and adds to the 'Open Card' list
 function openCard(card) {
 	card.classList.toggle('open');
 
@@ -88,12 +89,14 @@ function openCard(card) {
 	openCards.push(cardIcon);
 }
 
+// Function that checks if the last opened card equals the second to last opened
 function checkMatch(card) {
 	const lastCard = openCards[openCards.length-1];
 	const secondCard = openCards[openCards.length-2];
 	
 	const pairCards = document.querySelectorAll('.open');
 
+	// TODO: Probably break this up into another function?
 	if (lastCard == secondCard) {
 		matchCard(pairCards);
 	} else {
@@ -107,7 +110,7 @@ function checkMatch(card) {
 	}, 1500);
 }
 
- // if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ // if the cards do match, cards should have open characteristics
 function matchCard(pairCards) {
 	for (const pairCard of pairCards) {
 		setTimeout(function() {
@@ -117,6 +120,7 @@ function matchCard(pairCards) {
 	}
 } 
 
+ // if the cards do match, cards should return no normal (not open)
 function noMatch(pairCards) {
 	for (const pairCard of pairCards) {
 		setTimeout(function() {
@@ -129,48 +133,53 @@ function noMatch(pairCards) {
 	}
 }
 
- /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one) */
-let currentMoveCount = 0;
-
+// increment move count
 function incrementMoves(currentMoves) {
 	currentMoveCount += 1;
-	document.querySelector('.moves').innerHTML = currentMoveCount;
+	movesDisplayed.innerHTML = currentMoveCount;
 }
 
- /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+// END OF GAME PLAY
+// Define Variables
+const overlay = document.querySelector('.overlay') // overlay screen
+const playAgainButton = document.querySelector('.play-again') // 
+const repeaButton = document.querySelector('.fa-sync')
+
+
+// check if all cards are matched. 
 function checkDone(openCards) {
-	if (openCards.length == 2) {
-		document.querySelector('.overlay').classList.add('open');
-		document.querySelector('.finalMoves').innerHTML = document.querySelector('.moves').innerHTML;
+	if (openCards.length == 16) {
+		overlay.classList.add('open');
+		document.querySelector('.finalMoves').innerHTML = movesDisplayed.innerHTML;
 		stopTimer();
 		document.querySelector('.finalTime').innerHTML = mins.innerHTML + ':' + secs.innerHTML;
 	}
 }
 
-const play_again_button = document.querySelector('.play-again')
-const repeat_button = document.querySelector('.fa-sync')
-
-play_again_button.addEventListener('click', function() {
-	document.querySelector('.overlay').classList.remove('open');
+// Reset game when play again is clicked
+playAgainButton.addEventListener('click', function() {
+	overlay.classList.remove('open');
 	reset();	
 })
 
-repeat_button.addEventListener('click', function() {
+// Reset game when repeat button is clicked
+repeaButton.addEventListener('click', function() {
 	reset();	
 })
 
+// When reset, 
 function reset() {
 	deck.innerHTML = '';
-	document.querySelector('.moves').innerHTML = 0;
+	movesDisplayed.innerHTML = 0;
 	loadDeck();
 	resetTimer();
 	resetStar();
 }
 
-// Timer Functionality
+// TIMER FUNCTIONALITY
+// Define Variables
 let t;
-let seconds = 55;
+let seconds = 0;
 let minutes = 0;
 let hours = 0;
 let secs = document.querySelector('.secs');
@@ -186,29 +195,31 @@ function stopTimer() {
 
 function resetTimer() {
 	clearInterval(t);
-	mins.innerHTML = "00";
-	secs.innerHTML = "00";
+	mins.innerHTML = '00';
+	secs.innerHTML = '00';
 }
 
 function updateTime() {
 	seconds++;
-
+	
 	if (seconds >= 60) {
 		minutes++ ;
 		seconds = 0;
 	}
-	mins.innerHTML = (minutes > 9 ? minutes : "0"+minutes);
-	secs.innerHTML = (seconds > 9 ? seconds : "0"+seconds);
+	mins.innerHTML = (minutes > 9 ? minutes : '0'+minutes);
+	secs.innerHTML = (seconds > 9 ? seconds : '0'+seconds);
 
 }
-
-let starCount = 3;
 
 // STAR RATING FUNCTIONALITY
 /*Complete in:
 	< 13 moves: 3 stars!
 	< 20 moves: 2 stars!
 	< 27 moves: 1 stars!*/
+
+// Define Variables
+let starCount = 3;
+
 function checkStars () {
 	if (starCount == 3 && currentMoveCount >= 13) {
 		starCount = 2;
