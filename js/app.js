@@ -51,6 +51,7 @@ loadDeck();
 
 // SETTING UP EVENT LISTENER FOR CLICKING A CARD
 // Variables
+const allCards = document.querySelectorAll('.card')
 let clickCount = 0; // keep track of # of clicks
 let openCards = []; // Create list of open cards (open or matched)
 let currentMoveCount = 0; // keep track of # of moves
@@ -81,6 +82,12 @@ deck.addEventListener('click', function(evt) {
 	}
 });
 
+function disableClick(cards) {
+	for (let card of cards) {
+		card.classList.remove('no-click');
+	}
+}
+
 // Function that opens card, and adds to the 'Open Card' list
 function openCard(card) {
 	card.classList.toggle('open');
@@ -95,6 +102,11 @@ function checkMatch(card) {
 	const secondCard = openCards[openCards.length-2];
 	
 	const pairCards = document.querySelectorAll('.open');
+	
+	// Disable clicking of any other card
+	for (let card of allCards) {
+		card.classList.add('no-click')
+	}
 
 	// TODO: Probably break this up into another function?
 	if (lastCard == secondCard) {
@@ -116,6 +128,7 @@ function matchCard(pairCards) {
 		setTimeout(function() {
 			pairCard.classList.add('match');
 			pairCard.classList.remove('open');
+			disableClick(allCards);
 		}, 750);
 	}
 } 
@@ -128,6 +141,7 @@ function noMatch(pairCards) {
 			pairCard.classList.remove('open');
 			setTimeout(function() {
 				pairCard.classList.remove('noMatch');
+				disableClick(allCards);
 			}, 775);
 		}, 750);
 	}
@@ -137,6 +151,7 @@ function noMatch(pairCards) {
 function incrementMoves(currentMoves) {
 	currentMoveCount += 1;
 	movesDisplayed.innerHTML = currentMoveCount;
+	checkStars();
 }
 
 // END OF GAME PLAY
@@ -148,11 +163,12 @@ const repeaButton = document.querySelector('.fa-sync')
 
 // check if all cards are matched. 
 function checkDone(openCards) {
-	if (openCards.length == 16) {
+	if (openCards.length == 2) {
 		overlay.classList.add('open');
 		document.querySelector('.finalMoves').innerHTML = movesDisplayed.innerHTML;
 		stopTimer();
 		document.querySelector('.finalTime').innerHTML = mins.innerHTML + ':' + secs.innerHTML;
+		document.querySelector('.finalStars').innerHTML = starCount;
 	}
 }
 
