@@ -164,7 +164,7 @@ const repeaButton = document.querySelector('.fa-sync')
 
 // check if all cards are matched. 
 function checkDone(openCards) {
-	if (openCards.length == 2) {
+	if (openCards.length == 16) {
 		overlay.classList.add('open');
 		document.querySelector('.finalMoves').innerHTML = movesDisplayed.innerHTML;
 		stopTimer();
