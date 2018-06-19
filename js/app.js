@@ -75,6 +75,7 @@ deck.addEventListener('click', function(evt) {
 	if (!targetCard.classList.contains('match')) {
 		openCard(targetCard);
 		if (openCards.length % 2 == 0) {
+			disableClick(allCards);
 			// If there's an even # of cards in the openCards, that counts as a 'move', and check whether it matches the last opened card
 			incrementMoves();
 			checkMatch(targetCard);
@@ -82,9 +83,14 @@ deck.addEventListener('click', function(evt) {
 	}
 });
 
-function disableClick(cards) {
+function enableClick(cards) {
 	for (let card of cards) {
 		card.classList.remove('no-click');
+	}
+}
+function disableClick(cards) {
+	for (let card of cards) {
+		card.classList.add('no-click');
 	}
 }
 
@@ -102,11 +108,6 @@ function checkMatch(card) {
 	const secondCard = openCards[openCards.length-2];
 	
 	const pairCards = document.querySelectorAll('.open');
-	
-	// Disable clicking of any other card
-	for (let card of allCards) {
-		card.classList.add('no-click')
-	}
 
 	// TODO: Probably break this up into another function?
 	if (lastCard == secondCard) {
@@ -128,7 +129,7 @@ function matchCard(pairCards) {
 		setTimeout(function() {
 			pairCard.classList.add('match');
 			pairCard.classList.remove('open');
-			disableClick(allCards);
+			enableClick(allCards);
 		}, 750);
 	}
 } 
@@ -141,7 +142,7 @@ function noMatch(pairCards) {
 			pairCard.classList.remove('open');
 			setTimeout(function() {
 				pairCard.classList.remove('noMatch');
-				disableClick(allCards);
+				enableClick(allCards);
 			}, 775);
 		}, 750);
 	}
@@ -186,10 +187,12 @@ repeaButton.addEventListener('click', function() {
 // When reset, 
 function reset() {
 	deck.innerHTML = '';
-	movesDisplayed.innerHTML = 0;
+	currentMoveCount = 0;
+	movesDisplayed.innerHTML = currentMoveCount;
 	loadDeck();
 	resetTimer();
 	resetStar();
+	openCards = [];
 }
 
 // TIMER FUNCTIONALITY
@@ -210,7 +213,12 @@ function stopTimer() {
 }
 
 function resetTimer() {
+	clickCount = 0;
 	clearInterval(t);
+	seconds = 0;
+	minutes = 0;
+	hours = 0;
+	
 	mins.innerHTML = '00';
 	secs.innerHTML = '00';
 }
